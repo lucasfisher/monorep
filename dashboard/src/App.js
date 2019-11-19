@@ -20,11 +20,7 @@ class App extends Component {
                             <div>
                                 <Navigation  />
                                 <Body />
-                            </div>
-
-
-
-                    </Route>
+                            </div>                    </Route>
                 </div>
             </Router>
         );

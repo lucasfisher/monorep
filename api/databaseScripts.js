@@ -1,42 +1,22 @@
-
-
 const mysql = require('mysql');
-var connection; 
-
-
-
+var connection;
 module.exports = {
 
-    dbConnection : function (){
-         connection = mysql.createConnection({
-            host:'mysql-dev',
+    dbConnection: function() {
+        connection = mysql.createConnection({
+            host: 'mysql-dev',
             user: 'root',
             password: 'root',
             database: 'app',
-            port:3306
+            port: 3306
         })
 
-        connection.connect(function(err){
-            if(err) throw err;
+        connection.connect(function(err) {
+            if (err) throw err;
             console.log("connected");
         });
 
 
-
-        
-
         return connection;
-
-
-
     }
 }
-
-
-
-
-
-
-
-
-

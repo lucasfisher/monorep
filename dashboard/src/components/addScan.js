@@ -29,11 +29,7 @@ class AddScan extends Component {
         //console.log(val.target.name);
         this.setState( { [val.target.name]:val.target.value });
        // console.log(this.state)
-    }
-
-
-
-    render(){
+    }    render(){
         return (
             <div className={"addScan"}>
                 Add A Mock Scan Result
