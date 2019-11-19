@@ -1,7 +1,13 @@
-FROM node:10-alpine
+FROM node:10-alpine as build
 WORKDIR /app
-copy package.json .
-
+COPY . .
 RUN npm install
+
+# By splitting up the build image from the run image there can we can sometimes net some benefits
+# 
+# No benefit in this case though, since we have to copy over all the files anyway
+FROM node:10-alpine
+COPY --from=build /app /app
+WORKDIR /app
 
 CMD ["npm", "start"]
