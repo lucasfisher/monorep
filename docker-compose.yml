@@ -1,39 +1,37 @@
 version: "3"
 
 services:
-    app:
-        build: ./api
-        volumes:
-         -    ./api:/app
-        working_dir: /app
-        depends_on:
-            - mysql-dev
-        ports:
-            - 3030:3000
-        command: npm start
-        expose: 
-          -   3030
+  app:
+    build: ./api
+    volumes:
+      - ./api:/app
+    working_dir: /app
+    depends_on:
+      - mysql-dev
+    ports:
+      - 3030:3000
+    command: npm start
+    expose:
+      - 3030
 
-        
-    mysql-dev:
-        image: mysql:8.0.17
-        command: --default-authentication-plugin=mysql_native_password
-        environment:
-            MYSQL_ROOT_PASSWORD: root
-            MYSQL_DATABASE: app
-        ports:
-            - 3300:3306
-        volumes: 
-            - ./db-files:/docker-entrypoint-initdb.d
-    dashboard:
-        build:
-             ./dashboard            
-        ports:
-            - 3001:3000
-        depends_on:
-             - app
-       
-    admin:
-        image: adminer
-        ports:
-        - 8080:8080
+  mysql-dev:
+    image: mysql:8.0.17
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: app
+    ports:
+      - 3300:3306
+    volumes:
+      - ./db-files:/docker-entrypoint-initdb.d
+  dashboard:
+    build: ./dashboard
+    ports:
+      - 3001:3000
+    depends_on:
+      - app
+
+  admin:
+    image: adminer
+    ports:
+      - 8081:8080
