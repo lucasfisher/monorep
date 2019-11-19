@@ -1,14 +1,21 @@
-from node:8 as react-build
-add yarn.lock /yarn.lock
-add package.json /package.json
+FROM node:8 as react-build
+ADD yarn.lock /yarn.lock
+ADD package.json /package.json
 
-workdir /app
+WORKDIR /app
 
-copy package.json /app/package.json
-run npm install
+COPY package.json /app/package.json
+RUN npm install
 
-copy . /app
-run npm run build
+COPY . /app
+RUN npm run build
 
-expose 80
+FROM node:8
+
+# Here we only need to copy over public once the docker image is built. this makes the image a little bit smaller
+COPY --from=react-build /app/public /app/public
+COPY --from=react-build /app/package.json /app/package.json
+WORKDIR /app
+
+EXPOSE 80
 CMD ["npm", "start"]
